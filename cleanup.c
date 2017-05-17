@@ -22,5 +22,7 @@ int		die(t_env *env)
 		mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	if (env->redraw_mask != NULL)
 		free(env->redraw_mask);
+	if (env->image2 != NULL)
+		free(env->image2);
 	exit(0);
 }

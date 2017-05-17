@@ -50,6 +50,9 @@ int			init(t_env *env)
 	if (env->redraw_mask == NULL)
 		return (1);
 	clear_image(env->redraw_mask, 1);
+	env->image2 = (int*)malloc((WIN_WIDTH * WIN_HEIGHT) * sizeof(int));
+	if (env->image2 == NULL)
+		return (1);
 	(*(env->render_init))(env);
 	err = init_mlx(env);
 	if (err)

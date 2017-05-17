@@ -50,6 +50,7 @@ typedef struct	s_env
 	t_coordd	julia_param;
 	int			max_iterations;
 	int			*redraw_mask;
+	int			*image2;
 	int			line;
 }				t_env;
 
@@ -123,6 +124,7 @@ int				render_line_julia(t_env *env, int y);
 */
 
 void			clear_image(int *image, int color);
+void			copy_image(int *img_dest, int *img_src);
 
 /*
 ** From move.c

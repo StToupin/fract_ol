@@ -39,8 +39,8 @@ static void			move_image(int *image, int *mask, t_coord delta)
 			}
 			else
 			{
-				image[WIN_WIDTH * c_new.y + c_new.x] = 0;
-				mask[WIN_WIDTH * c_new.y + c_new.x] = 1;
+				image[AT(c_new.x, c_new.y)] = 0;
+				mask[AT(c_new.x, c_new.y)] = 1;
 			}
 		}
 	}
@@ -53,8 +53,35 @@ void				translate(t_env *env, t_coord delta)
 	move_image(env->image, env->redraw_mask, delta);
 }
 
+static void			zoom_image(int *image, int *image2, int *mask, double zoom)
+{
+	t_coord c_new;
+	t_coord c_old;
+
+	c_new.y = -1;
+	while (++c_new.y < WIN_HEIGHT)
+	{
+		c_new.x = -1;
+		while (++c_new.x < WIN_WIDTH)
+		{
+			c_old.x = (int)((c_new.x - WIN_WIDTH / 2) * zoom + WIN_WIDTH / 2);
+			c_old.y = (int)((c_new.y - WIN_HEIGHT / 2) * zoom + WIN_HEIGHT / 2);
+			if (in_image(c_old))
+			{
+				image2[AT(c_new.x, c_new.y)] = image[AT(c_old.x, c_old.y)];
+				if (zoom > 1.)
+					mask[AT(c_new.x, c_new.y)] = mask[AT(c_old.x, c_old.y)];
+			}
+			else
+				image2[AT(c_new.x, c_new.y)] = 0;
+		}
+	}
+	copy_image(image, image2);
+}
+
 void				zoom(t_env *env, double zoom)
 {
 	env->scale *= zoom;
 	clear_image(env->redraw_mask, 1);
+	zoom_image(env->image, env->image2, env->redraw_mask, zoom);
 }

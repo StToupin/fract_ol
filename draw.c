@@ -15,18 +15,21 @@
 
 void				clear_image(int *image, int color)
 {
-	int x;
-	int y;
+	int i;
 
-	y = 0;
-	while (y < WIN_HEIGHT)
+	i = 0;
+	while (i < WIN_WIDTH * WIN_HEIGHT)
+		image[i++] = color;
+}
+
+void				copy_image(int *img_dest, int *img_src)
+{
+	int i;
+
+	i = 0;
+	while (i < WIN_WIDTH * WIN_HEIGHT)
 	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			image[AT(x, y)] = color;
-			x++;
-		}
-		y++;
+		img_dest[i] = img_src[i];
+		i++;
 	}
 }

@@ -41,8 +41,8 @@ static inline double	render_pixel(t_coordd c0, int max_iterations)
 		return (1.);
 	c = (t_coordd){0., 0.};
 	c2 = c;
-	iteration = 1;
-	while (c2.x + c2.y < 4 && iteration < max_iterations)
+	iteration = -1;
+	while (c2.x + c2.y < 4 && ++iteration < max_iterations)
 	{
 		ctemp.x = c2.x - c2.y + c0.x;
 		ctemp.y = 2. * c.x * c.y + c0.y;
@@ -50,12 +50,12 @@ static inline double	render_pixel(t_coordd c0, int max_iterations)
 			return (1.);
 		c = ctemp;
 		c2 = (t_coordd){c.x * c.x, c.y * c.y};
-		iteration++;
 	}
 	d = 0.;
 	if (iteration < max_iterations)
 		d = 1. - log(log(c2.x + c2.y) / 2. / log(2.)) / log(2.);
-	return (((double)(iteration) + d) / (double)max_iterations);
+	d = ((double)(iteration) + d) / (double)max_iterations;
+	return (log(1. + 20. * d) / log(20.));
 }
 
 int						render_line_mandelbrot(t_env *env, int y)
