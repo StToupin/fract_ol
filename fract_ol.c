@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 {
 	t_env	env;
 	int		err;
+	int		julia;
 
 	if (argc != 2)
 		return (print_usage(argv[0]));
@@ -32,11 +33,13 @@ int	main(int argc, char **argv)
 	{
 		env.render_init = &init_mandelbrot;
 		env.render_line = &render_line_mandelbrot;
+		julia = 0;
 	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
 		env.render_init = &init_julia;
 		env.render_line = &render_line_julia;
+		julia = 1;
 	}
 	else
 		return (print_usage(argv[0]));

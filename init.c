@@ -35,6 +35,7 @@ static int	init_mlx(t_env *env)
 	mlx_hook(env->mlx_win, 17, 0, &hook_close, env);
 	mlx_hook(env->mlx_win, 2, 0, &hook_key, env);
 	mlx_loop_hook(env->mlx_ptr, &hook_loop, env);
+	mlx_hook(env->mlx_win, 4, 0, &hook_mouse_wheel, env);
 	mlx_loop(env->mlx_ptr);
 	return (0);
 }

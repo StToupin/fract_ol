@@ -17,6 +17,7 @@ void					init_mandelbrot(t_env *env)
 {
 	env->center = (t_coordd){-.75, 0.};
 	env->scale = 3.5 / (double)WIN_WIDTH;
+	env->square = 0;
 }
 
 static inline int		check_cardioid(t_coordd c)

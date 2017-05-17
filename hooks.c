@@ -39,18 +39,6 @@ int			hook_key(int key, t_env *env)
 	return (0);
 }
 
-int			hook_scroll_up(t_env *env)
-{
-	env->scale *= 2.;
-	return (0);
-}
-
-int			hook_scroll_down(t_env *env)
-{
-	env->scale /= 2.;
-	return (0);
-}
-
 int			hook_loop(t_env *env)
 {
 	int i;
@@ -67,5 +55,68 @@ int			hook_loop(t_env *env)
 			i++;
 	}
 	mlx_put_image_to_window(env, env->mlx_win, env->image_ptr, 0, 0);
+	return (0);
+}
+
+int			hook_mouse_moved(int x, int y, t_env *env)
+{
+	int a;
+
+	a = env->square;
+	if (x >= 0 && x < a && y >= 0 && y < a)
+	{
+		env->julia_param = (t_coordd){2. * (double)x / (double)a - 1.,
+									2. * (double)y / (double)a - 1.};
+		clear_image(env->redraw_mask, 1);
+		env->line = 0;
+	}
+	return (0);
+}
+
+int			hook_mouse_wheel(int button, int x, int y, t_env *env)
+{
+	int a;
+
+	a = env->square;
+	if (button == 4)
+	{
+		if (x >= 0 && x < a && y >= 0 && y < a)
+		{
+			env->julia_param.y += .00001 * WIN_WIDTH * env->scale;
+			clear_image(env->redraw_mask, 1);
+		}
+		else
+		{
+			translate(env, (t_coord){.1 * (WIN_WIDTH / 2 - x),
+										.1 * (WIN_HEIGHT / 2 - y)});
+			zoom(env, 1.1);
+		}
+		env->line = 0;
+	}
+	if (button == 5)
+	{
+		if (x >= 0 && x < a && y >= 0 && y < a)
+		{
+			env->julia_param.y -= .00001 * WIN_WIDTH * env->scale;
+			clear_image(env->redraw_mask, 1);
+		}
+		else
+		{
+			translate(env, (t_coord){.1 * (x - WIN_WIDTH / 2),
+										.1 * (y - WIN_HEIGHT / 2)});
+			zoom(env, 1. / 1.1);
+		}
+		env->line = 0;
+	}
+	if (button == 6 && x >= 0 && x < a && y >= 0 && y < a)
+	{
+		env->julia_param.x += .01;
+		clear_image(env->redraw_mask, 1);
+	}
+	if (button == 7 && x >= 0 && x < a && y >= 0 && y < a)
+	{
+		env->julia_param.x -= .0001;
+		clear_image(env->redraw_mask, 1);
+	}
 	return (0);
 }

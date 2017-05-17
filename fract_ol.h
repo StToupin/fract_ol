@@ -13,8 +13,8 @@
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define AT(x, y) (WIN_WIDTH * (y) + (x))
 
 typedef struct	s_coord
@@ -52,6 +52,7 @@ typedef struct	s_env
 	int			*redraw_mask;
 	int			*image2;
 	int			line;
+	int			square;
 }				t_env;
 
 typedef	enum	e_key
@@ -98,6 +99,9 @@ int				color_fractal(double x);
 int				hook_close(t_env *env);
 int				hook_key(int key, t_env *env);
 int				hook_loop(t_env *env);
+int				hook_mouse(int button, int x, int y, t_env *env);
+int				hook_mouse_moved(int x, int y, t_env *env);
+int				hook_mouse_wheel(int button, int x, int y, t_env *env);
 
 /*
 ** From cleanup.c

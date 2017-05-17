@@ -16,8 +16,9 @@
 void					init_julia(t_env *env)
 {
 	env->center = (t_coordd){0., 0.};
-	env->scale = 4. / (double)WIN_WIDTH;
+	env->scale = 3.5 / (double)WIN_WIDTH;
 	env->julia_param = (t_coordd){-.8, .156};
+	env->square = WIN_WIDTH / 10.;
 }
 
 static inline double	render_pixel(t_coordd c, t_coordd jp,
@@ -41,6 +42,23 @@ static inline double	render_pixel(t_coordd c, t_coordd jp,
 	return ((double)iteration / max_iterations);
 }
 
+static void				draw_square(t_env *env)
+{
+	int i;
+	int a;
+
+	a = env->square;
+	i = 0;
+	while (i < a)
+	{
+		env->image[AT(i, 0)] = 0xffffff;
+		env->image[AT(0, i)] = 0xffffff;
+		env->image[AT(i, a)] = 0xffffff;
+		env->image[AT(a, i)] = 0xffffff;
+		i++;
+	}
+}
+
 int						render_line_julia(t_env *env, int y)
 {
 	t_coord		c;
@@ -52,8 +70,8 @@ int						render_line_julia(t_env *env, int y)
 	center = env->center;
 	scale = env->scale;
 	drawn = 0;
-	c = (t_coord){0, y};
-	while (c.x < WIN_WIDTH)
+	c = (t_coord){-1, y};
+	while (++c.x < WIN_WIDTH)
 	{
 		if (env->redraw_mask[AT(c.x, c.y)] == 1)
 		{
@@ -65,7 +83,7 @@ int						render_line_julia(t_env *env, int y)
 			env->redraw_mask[AT(c.x, c.y)] = 0;
 			drawn = 1;
 		}
-		c.x++;
 	}
+	draw_square(env);
 	return (drawn);
 }
