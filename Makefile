@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror -g
 
 NAME = fract_ol
 
-SRC = ft.c hooks.c cleanup.c init.c colors.c mandelbrot.c julia.c draw.c \
+SRC = ft.c move.c hooks.c cleanup.c init.c colors.c mandelbrot.c julia.c draw.c \
 		fract_ol.c
 OBJ = $(SRC:.c=.o)
 

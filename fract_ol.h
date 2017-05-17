@@ -13,8 +13,9 @@
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define AT(x, y) (WIN_WIDTH * (y) + (x))
 
 typedef struct	s_coord
 {
@@ -44,10 +45,12 @@ typedef struct	s_env
 	t_coordd	center;
 	double		scale;
 	int			(*colorf)(double);
-	void		(*render)(struct s_env *env);
+	int			(*render_line)(struct s_env *env, int y);
 	void		(*render_init)(struct s_env *env);
 	t_coordd	julia_param;
 	int			max_iterations;
+	int			*redraw_mask;
+	int			line;
 }				t_env;
 
 typedef	enum	e_key
@@ -93,6 +96,7 @@ int				color_fractal(double x);
 
 int				hook_close(t_env *env);
 int				hook_key(int key, t_env *env);
+int				hook_loop(t_env *env);
 
 /*
 ** From cleanup.c
@@ -105,18 +109,26 @@ int				die(t_env *env);
 */
 
 void			init_mandelbrot(t_env *env);
-void			render_mandelbrot(t_env *env);
+int				render_line_mandelbrot(t_env *env, int y);
 
 /*
 ** From julia.c
 */
 
 void			init_julia(t_env *env);
-void			render_julia(t_env *env);
+int				render_line_julia(t_env *env, int y);
+
 /*
 ** From draw.c
 */
 
-void			draw(t_env *env);
+void			clear_image(int *image, int color);
+
+/*
+** From move.c
+*/
+
+void			translate(t_env *env, t_coord delta);
+void			zoom(t_env *env, double zoom);
 
 #endif

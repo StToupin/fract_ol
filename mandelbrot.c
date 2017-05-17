@@ -58,27 +58,30 @@ static inline double	render_pixel(t_coordd c0, int max_iterations)
 	return (((double)(iteration) + d) / (double)max_iterations);
 }
 
-void					render_mandelbrot(t_env *env)
+int						render_line_mandelbrot(t_env *env, int y)
 {
 	t_coord		c;
 	t_coordd	cd;
 	t_coordd	center;
 	double		scale;
+	int			drawn;
 
 	center = env->center;
 	scale = env->scale;
-	c = (t_coord){0, 0};
-	while (c.y < WIN_HEIGHT)
+	c = (t_coord){0, y};
+	drawn = 0;
+	while (c.x < WIN_WIDTH)
 	{
-		c.x = 0;
-		while (c.x < WIN_WIDTH)
+		if (env->redraw_mask[AT(c.x, c.y)] == 1)
 		{
 			cd = (t_coordd){center.x + scale * (c.x - WIN_WIDTH / 2),
 							center.y + scale * (c.y - WIN_HEIGHT / 2)};
-			env->image[WIN_WIDTH * c.y + c.x] =
+			env->image[AT(c.x, c.y)] =
 				env->colorf(render_pixel(cd, env->max_iterations));
-			c.x++;
+			env->redraw_mask[AT(c.x, c.y)] = 0;
+			drawn = 1;
 		}
-		c.y++;
+		c.x++;
 	}
+	return (drawn);
 }

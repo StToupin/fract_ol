@@ -31,12 +31,12 @@ int	main(int argc, char **argv)
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
 		env.render_init = &init_mandelbrot;
-		env.render = &render_mandelbrot;
+		env.render_line = &render_line_mandelbrot;
 	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
 		env.render_init = &init_julia;
-		env.render = &render_julia;
+		env.render_line = &render_line_julia;
 	}
 	else
 		return (print_usage(argv[0]));
