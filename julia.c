@@ -16,8 +16,8 @@
 void					init_julia(t_env *env)
 {
 	env->center = (t_coordd){0., 0.};
-	env->scale = 2. / (double)WIN_WIDTH;
-	env->julia_param = (t_coordd){-.7, .27015};
+	env->scale = 4. / (double)WIN_WIDTH;
+	env->julia_param = (t_coordd){-.8, .156};
 }
 
 static inline double	render_pixel(t_coordd c, t_coordd jp,
