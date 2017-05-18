@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O3
 
-NAME = fract_ol
+NAME = fractol
 
 SRC = ft.c move.c hooks.c hooks_mouse.c cleanup.c init.c colors.c draw.c \
 		complex1.c complex2.c alternate1.c alternate2.c alternate3.c \
