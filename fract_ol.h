@@ -13,8 +13,8 @@
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
 # define AT(x, y) (WIN_WIDTH * (y) + (x))
 
 typedef struct	s_coord
@@ -67,7 +67,8 @@ typedef	enum	e_key
 	KEY_PAGEUP = 116,
 	KEY_PAGEDOWN = 121,
 	KEY_SPACE = 49,
-	KEY_ENTER = 36
+	KEY_ENTER = 36,
+	KEY_P = 35
 }				t_key;
 
 /*

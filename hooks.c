@@ -12,6 +12,7 @@
 
 #include "fract_ol.h"
 #include "mlx.h"
+#include "bitmap.h"
 
 int			hook_close(t_env *env)
 {
@@ -35,6 +36,10 @@ int			hook_key(int key, t_env *env)
 		translate(env, (t_coord){-50, 0});
 	if (key == KEY_RIGHT)
 		translate(env, (t_coord){50, 0});
+	if (key == KEY_RIGHT)
+		translate(env, (t_coord){50, 0});
+	if (key == KEY_P)
+		save_bitmap("fractal.bmp", WIN_WIDTH, WIN_HEIGHT, env->image);
 	env->line = 0;
 	return (0);
 }
