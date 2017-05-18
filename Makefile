@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror -O3
 
 NAME = fract_ol
 
-SRC = ft.c move.c hooks.c cleanup.c init.c colors.c mandelbrot.c julia.c draw.c \
-		fract_ol.c
+SRC = ft.c move.c hooks.c hooks_mouse.c cleanup.c init.c colors.c draw.c \
+		mandelbrot.c julia.c fract_ol.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -25,6 +25,6 @@ fclean: clean
 re: fclean all
 
 norminette:
-	norminette *.h $(SRC)
+	norminette fract_ol.h $(SRC)
 
 .PHONY: all clean fclean re norminette

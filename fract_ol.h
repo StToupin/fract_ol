@@ -99,7 +99,11 @@ int				color_fractal(double x);
 int				hook_close(t_env *env);
 int				hook_key(int key, t_env *env);
 int				hook_loop(t_env *env);
-int				hook_mouse(int button, int x, int y, t_env *env);
+
+/*
+** Froom hooks_mouse.c
+*/
+
 int				hook_mouse_moved(int x, int y, t_env *env);
 int				hook_mouse_wheel(int button, int x, int y, t_env *env);
 
@@ -129,6 +133,7 @@ int				render_line_julia(t_env *env, int y);
 
 void			clear_image(int *image, int color);
 void			copy_image(int *img_dest, int *img_src);
+void			draw_square(t_env *env);
 
 /*
 ** From move.c

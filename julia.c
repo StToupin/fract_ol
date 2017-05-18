@@ -42,23 +42,6 @@ static inline double	render_pixel(t_coordd c, t_coordd jp,
 	return ((double)iteration / max_iterations);
 }
 
-static void				draw_square(t_env *env)
-{
-	int i;
-	int a;
-
-	a = env->square;
-	i = 0;
-	while (i < a)
-	{
-		env->image[AT(i, 0)] = 0xffffff;
-		env->image[AT(0, i)] = 0xffffff;
-		env->image[AT(i, a)] = 0xffffff;
-		env->image[AT(a, i)] = 0xffffff;
-		i++;
-	}
-}
-
 int						render_line_julia(t_env *env, int y)
 {
 	t_coord		c;
@@ -84,6 +67,5 @@ int						render_line_julia(t_env *env, int y)
 			drawn = 1;
 		}
 	}
-	draw_square(env);
 	return (drawn);
 }

@@ -33,3 +33,25 @@ void				copy_image(int *img_dest, int *img_src)
 		i++;
 	}
 }
+
+static inline void	draw_pixel(t_env *env, int x, int y, int color)
+{
+	mlx_pixel_put(env->mlx_ptr, env->mlx_win, x, y, color);
+}
+
+void				draw_square(t_env *env)
+{
+	int					i;
+	int					a;
+	static const int	square_color = 0xffffff;
+
+	a = env->square;
+	i = 0;
+	while (i < a)
+	{
+		draw_pixel(env, i, a, square_color);
+		draw_pixel(env, a, i, square_color);
+		draw_pixel(env, a / 2, i, square_color);
+		i++;
+	}
+}
