@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stoupin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,22 +13,17 @@
 #include <math.h>
 #include "fract_ol.h"
 
-void					init_mandelbrot(t_env *env)
+void					init_burning_ship(t_env *env)
 {
-	env->render_line = &render_line_mandelbrot;
-	env->center = (t_coordd){-.75, 0.};
-	env->scale = 3.5 / (double)WIN_WIDTH;
+	env->render_line = &render_line_burning_ship;
+	env->center = (t_coordd){-1.76, -.0385};
+	env->scale = .18 / (double)WIN_WIDTH;
 	env->square = 0;
 }
 
-static inline int		check_cardioid(t_coordd c)
+static inline double	ft_abs(double x)
 {
-	double				d;
-
-	if ((c.x + 1.) * (c.x + 1.) + c.y * c.y < 1. / 16.)
-		return (1);
-	d = (c.x - .25) * (c.x - .25) + c.y * c.y;
-	return (d * (d + (c.x - .25)) < .25 * c.y * c.y);
+	return (x >= 0 ? x : -x);
 }
 
 static inline double	render_pixel(t_coordd c0, int max_iterations)
@@ -39,15 +34,13 @@ static inline double	render_pixel(t_coordd c0, int max_iterations)
 	t_coordd			ctemp;
 	double				d;
 
-	if (check_cardioid(c0))
-		return (1.);
 	c = (t_coordd){0., 0.};
 	c2 = c;
 	iteration = -1;
 	while (c2.x + c2.y < 4 && ++iteration < max_iterations)
 	{
 		ctemp.x = c2.x - c2.y + c0.x;
-		ctemp.y = 2. * c.x * c.y + c0.y;
+		ctemp.y = 2. * ft_abs(c.x) * ft_abs(c.y) + c0.y;
 		if (c.x == ctemp.x && c.y == ctemp.y)
 			return (1.);
 		c = ctemp;
@@ -60,7 +53,7 @@ static inline double	render_pixel(t_coordd c0, int max_iterations)
 	return (log(1. + 20. * d) / log(20.));
 }
 
-int						render_line_mandelbrot(t_env *env, int y)
+int						render_line_burning_ship(t_env *env, int y)
 {
 	t_coord		c;
 	t_coordd	cd;

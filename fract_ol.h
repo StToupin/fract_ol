@@ -121,6 +121,13 @@ void			init_mandelbrot(t_env *env);
 int				render_line_mandelbrot(t_env *env, int y);
 
 /*
+** From burning_ship.c
+*/
+
+void			init_burning_ship(t_env *env);
+int				render_line_burning_ship(t_env *env, int y);
+
+/*
 ** From julia.c
 */
 

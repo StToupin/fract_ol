@@ -17,7 +17,8 @@ int	print_usage(char *command)
 	ft_putstr_fd("Usage : ", 1);
 	ft_putstr_fd(command, 1);
 	ft_putstr_fd(" fractal\n", 1);
-	ft_putstr_fd("fractal must be either mandelbrot or julia\n", 1);
+	ft_putstr_fd("fractal must be either ", 1);
+	ft_putstr_fd("mandelbrot, julia or burningship\n", 1);
 	return (0);
 }
 
@@ -25,22 +26,15 @@ int	main(int argc, char **argv)
 {
 	t_env	env;
 	int		err;
-	int		julia;
 
 	if (argc != 2)
 		return (print_usage(argv[0]));
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
-	{
 		env.render_init = &init_mandelbrot;
-		env.render_line = &render_line_mandelbrot;
-		julia = 0;
-	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
-	{
 		env.render_init = &init_julia;
-		env.render_line = &render_line_julia;
-		julia = 1;
-	}
+	else if (ft_strcmp(argv[1], "burningship") == 0)
+		env.render_init = &init_burning_ship;
 	else
 		return (print_usage(argv[0]));
 	err = init(&env);

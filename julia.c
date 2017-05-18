@@ -15,6 +15,7 @@
 
 void					init_julia(t_env *env)
 {
+	env->render_line = &render_line_julia;
 	env->center = (t_coordd){0., 0.};
 	env->scale = 3.5 / (double)WIN_WIDTH;
 	env->julia_param = (t_coordd){-.8, .156};

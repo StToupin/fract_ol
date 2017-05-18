@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -O3
 NAME = fract_ol
 
 SRC = ft.c move.c hooks.c hooks_mouse.c cleanup.c init.c colors.c draw.c \
-		mandelbrot.c julia.c fract_ol.c
+		mandelbrot.c julia.c burning_ship.c fract_ol.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
