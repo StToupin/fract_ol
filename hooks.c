@@ -24,9 +24,9 @@ int			hook_key(int key, t_env *env)
 	if (key == KEY_ESC)
 		die(env);
 	if (key == KEY_PAGEUP)
-		zoom(env, 2.);
+		zoom(env, 1.5);
 	if (key == KEY_PAGEDOWN)
-		zoom(env, .5);
+		zoom(env, 1. / 1.5);
 	if (key == KEY_UP)
 		translate(env, (t_coord){0, -50});
 	if (key == KEY_DOWN)

@@ -128,6 +128,27 @@ void			init_burning_ship(t_env *env);
 int				render_line_burning_ship(t_env *env, int y);
 
 /*
+** From alternate1.c
+*/
+
+void			init_alternate1(t_env *env);
+int				render_line_alternate1(t_env *env, int y);
+
+/*
+** From alternate2.c
+*/
+
+void			init_alternate2(t_env *env);
+int				render_line_alternate2(t_env *env, int y);
+
+/*
+** From alternate3.c
+*/
+
+void			init_alternate3(t_env *env);
+int				render_line_alternate3(t_env *env, int y);
+
+/*
 ** From julia.c
 */
 
@@ -148,5 +169,22 @@ void			draw_square(t_env *env);
 
 void			translate(t_env *env, t_coord delta);
 void			zoom(t_env *env, double zoom);
+
+/*
+** From complex1.c
+*/
+
+t_coordd		complex_multiply(t_coordd c1, t_coordd c2);
+t_coordd		complex_add(t_coordd c1, t_coordd c2);
+t_coordd		complex_inv(t_coordd c);
+
+/*
+** From complex2.c
+*/
+
+t_coordd		complex_exp(t_coordd c);
+t_coordd		complex_sqrt(t_coordd c);
+t_coordd		complex_sinh(t_coordd c);
+t_coordd		complex_ln(t_coordd c);
 
 #endif
