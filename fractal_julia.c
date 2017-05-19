@@ -1,55 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alternate.c                                        :+:      :+:    :+:   */
+/*   fractal_julia.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stoupin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/15 14:04:00 by stoupin           #+#    #+#             */
-/*   Updated: 2017/05/15 14:05:17 by stoupin          ###   ########.fr       */
+/*   Created: 2017/05/15 16:47:36 by stoupin           #+#    #+#             */
+/*   Updated: 2017/05/15 16:47:40 by stoupin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "fract_ol.h"
 
-void					init_alternate2(t_env *env)
+void					init_julia(t_env *env)
 {
-	env->render_line = &render_line_alternate2;
+	env->render_line = &render_line_julia;
 	env->center = (t_coordd){0., 0.};
-	env->scale = 4. / (double)WIN_WIDTH;
-	env->square = 0;
-	env->max_iterations = 128;
-	env->julia_param = (t_coordd){.065, .122};
+	env->scale = 3.5 / (double)WIN_WIDTH;
+	env->julia_param = (t_coordd){-.8, .156};
 	env->square = WIN_WIDTH / 10.;
 }
 
-static inline double	render_pixel(t_coordd c0, t_coordd jp,
+static inline double	render_pixel(t_coordd c, t_coordd jp,
 										int max_iterations)
 {
-	t_coordd			c;
+	t_coordd			c_last;
 	t_coordd			c2;
 	int					iteration;
-	t_coordd			ctemp;
-	double				d;
 
-	c = c0;
+	iteration = 0;
 	c2 = (t_coordd){c.x * c.x, c.y * c.y};
-	iteration = -1;
-	while (c2.x + c2.y < 512 && ++iteration < max_iterations)
+	while (c2.x + c2.y < 4 && iteration < max_iterations)
 	{
-		ctemp = complex_add(complex_sqrt(
-							complex_sinh(complex_multiply(c, c))), jp);
-		if (c.x == ctemp.x && c.y == ctemp.y)
+		c_last = c;
+		c = (t_coordd){c2.x - c2.y + jp.x, 2. * c.x * c.y + jp.y};
+		if (c.x == c_last.x && c.y == c_last.y)
 			return (1.);
-		c = ctemp;
 		c2 = (t_coordd){c.x * c.x, c.y * c.y};
+		iteration++;
 	}
-	d = (double)(iteration) / (double)max_iterations;
-	return (d);
+	return ((double)iteration / max_iterations);
 }
 
-int						render_line_alternate2(t_env *env, int y)
+int						render_line_julia(t_env *env, int y)
 {
 	t_coord		c;
 	t_coordd	cd;
@@ -59,9 +53,9 @@ int						render_line_alternate2(t_env *env, int y)
 
 	center = env->center;
 	scale = env->scale;
-	c = (t_coord){0, y};
 	drawn = 0;
-	while (c.x < WIN_WIDTH)
+	c = (t_coord){-1, y};
+	while (++c.x < WIN_WIDTH)
 	{
 		if (env->redraw_mask[AT(c.x, c.y)] == 1)
 		{
@@ -73,7 +67,6 @@ int						render_line_alternate2(t_env *env, int y)
 			env->redraw_mask[AT(c.x, c.y)] = 0;
 			drawn = 1;
 		}
-		c.x++;
 	}
 	return (drawn);
 }

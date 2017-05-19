@@ -13,8 +13,8 @@
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define AT(x, y) (WIN_WIDTH * (y) + (x))
 
 typedef struct	s_coord
@@ -115,46 +115,46 @@ int				hook_mouse_wheel(int button, int x, int y, t_env *env);
 int				die(t_env *env);
 
 /*
-** From mandelbrot.c
+** From fractal_mandelbrot.c
 */
 
 void			init_mandelbrot(t_env *env);
 int				render_line_mandelbrot(t_env *env, int y);
 
 /*
-** From burning_ship.c
+** From fractal_julia.c
+*/
+
+void			init_julia(t_env *env);
+int				render_line_julia(t_env *env, int y);
+
+/*
+** From fractal_burning_ship.c
 */
 
 void			init_burning_ship(t_env *env);
 int				render_line_burning_ship(t_env *env, int y);
 
 /*
-** From alternate1.c
+** From fractal_alternate1.c
 */
 
 void			init_alternate1(t_env *env);
 int				render_line_alternate1(t_env *env, int y);
 
 /*
-** From alternate2.c
+** From fractal_alternate2.c
 */
 
 void			init_alternate2(t_env *env);
 int				render_line_alternate2(t_env *env, int y);
 
 /*
-** From alternate3.c
+** From fractal_alternate3.c
 */
 
 void			init_alternate3(t_env *env);
 int				render_line_alternate3(t_env *env, int y);
-
-/*
-** From julia.c
-*/
-
-void			init_julia(t_env *env);
-int				render_line_julia(t_env *env, int y);
 
 /*
 ** From draw.c

@@ -4,8 +4,10 @@ CFLAGS = -Wall -Wextra -O3
 NAME = fractol
 
 SRC = ft.c move.c hooks.c hooks_mouse.c cleanup.c init.c colors.c draw.c \
-		complex1.c complex2.c alternate1.c alternate2.c alternate3.c \
-		mandelbrot.c julia.c burning_ship.c bitmap.c fract_ol.c
+		complex1.c complex2.c bitmap.c \
+		fractal_mandelbrot.c fractal_julia.c fractal_burning_ship.c \
+		fractal_alternate1.c fractal_alternate2.c fractal_alternate3.c \
+		fract_ol.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

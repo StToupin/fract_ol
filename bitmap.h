@@ -21,14 +21,9 @@ typedef struct	s_bitmap_file_header
 {
 	char			bf_type[2];
 	uint32_t		bf_size;
-	uint16_t		bf_reserved1;
-	uint16_t		bf_reserved2;
+	uint32_t		bf_reserved;
 	uint32_t		bf_off_bits;
 }				t_bitmap_file_header;
-
-# pragma pack(pop)
-
-# pragma pack(push, 1)
 
 typedef struct	s_bitmap_info_header
 {
