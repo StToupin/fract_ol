@@ -20,6 +20,13 @@ int			hook_close(t_env *env)
 	return (0);
 }
 
+static void	rotate_color(t_env *env)
+{
+	env->n_color = (env->n_color + 1) % N_COLORS;
+	env->line = 0;
+	clear_image(env->redraw_mask, 1);
+}
+
 int			hook_key(int key, t_env *env)
 {
 	if (key == KEY_ESC)
@@ -40,21 +47,34 @@ int			hook_key(int key, t_env *env)
 		translate(env, (t_coord){50, 0});
 	if (key == KEY_P)
 		save_bitmap("fractal.bmp", WIN_WIDTH, WIN_HEIGHT, env->image);
-	env->line = 0;
+	if (key == KEY_SPACE)
+		rotate_color(env);
 	return (0);
+}
+
+static int	(*color_by_number(int n_color))(double)
+{
+	static int (*c_table[N_COLORS])(double) = {
+		&color_fractal, &color_terrain, &color_jet,
+		&color_grayscale, &color_red, &color_green, &color_blue};
+
+	return (c_table[n_color]);
 }
 
 int			hook_loop(t_env *env)
 {
 	int i;
 	int drawn;
+	int (*colorf)(double);
 
+	colorf = color_by_number(env->n_color);
 	drawn = 0;
 	i = 0;
 	while (i < 10 && env->line < WIN_HEIGHT / 2)
 	{
-		drawn |= (*env->render_line)(env, WIN_HEIGHT / 2 + env->line);
-		drawn |= (*env->render_line)(env, WIN_HEIGHT / 2 - 1 - env->line);
+		drawn |= (*env->render_line)(env, WIN_HEIGHT / 2 + env->line, colorf);
+		drawn |= (*env->render_line)(env, WIN_HEIGHT / 2 - 1 - env->line,
+										colorf);
 		env->line++;
 		if (drawn != 0)
 			i++;

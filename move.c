@@ -51,6 +51,7 @@ void				translate(t_env *env, t_coord delta)
 	env->center.x += delta.x * env->scale;
 	env->center.y += delta.y * env->scale;
 	move_image(env->image, env->redraw_mask, delta);
+	env->line = 0;
 }
 
 static void			zoom_image(int *image, int *image2, int *mask, double zoom)
@@ -84,4 +85,5 @@ void				zoom(t_env *env, double zoom)
 	env->scale *= zoom;
 	clear_image(env->redraw_mask, 1);
 	zoom_image(env->image, env->image2, env->redraw_mask, zoom);
+	env->line = 0;
 }

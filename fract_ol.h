@@ -44,8 +44,8 @@ typedef struct	s_env
 	int			*image;
 	t_coordd	center;
 	double		scale;
-	int			(*colorf)(double);
-	int			(*render_line)(struct s_env *env, int y);
+	int			n_color;
+	int			(*render_line)(struct s_env *env, int y, int (*colorf)(double));
 	void		(*render_init)(struct s_env *env);
 	t_coordd	julia_param;
 	int			max_iterations;
@@ -86,13 +86,24 @@ int				ft_putstr_fd(char *str, int fd);
 void			ft_putnbr_fd(int n, int fd);
 int				ft_strcmp(const char *s1, const char *s2);
 
+# define N_COLORS 7
+
 /*
 ** From colors.c
 */
 
-int				color_jet(double x);
-int				color_terrain(double x);
 int				color_fractal(double x);
+int				color_terrain(double x);
+int				color_jet(double x);
+
+/*
+** From colors_basic.c
+*/
+
+int				color_grayscale(double x);
+int				color_red(double x);
+int				color_green(double x);
+int				color_blue(double x);
 
 /*
 ** From hooks.c
@@ -114,42 +125,48 @@ int				hook_mouse_wheel(int button, int x, int y, t_env *env);
 */
 
 void			init_mandelbrot(t_env *env);
-int				render_line_mandelbrot(t_env *env, int y);
+int				render_line_mandelbrot(t_env *env, int y,
+										int (*colorf)(double));
 
 /*
 ** From fractal_julia.c
 */
 
 void			init_julia(t_env *env);
-int				render_line_julia(t_env *env, int y);
+int				render_line_julia(t_env *env, int y,
+									int (*colorf)(double));
 
 /*
 ** From fractal_burning_ship.c
 */
 
 void			init_burning_ship(t_env *env);
-int				render_line_burning_ship(t_env *env, int y);
+int				render_line_burning_ship(t_env *env, int y,
+											int (*colorf)(double));
 
 /*
 ** From fractal_alternate1.c
 */
 
 void			init_alternate1(t_env *env);
-int				render_line_alternate1(t_env *env, int y);
+int				render_line_alternate1(t_env *env, int y,
+										int (*colorf)(double));
 
 /*
 ** From fractal_alternate2.c
 */
 
 void			init_alternate2(t_env *env);
-int				render_line_alternate2(t_env *env, int y);
+int				render_line_alternate2(t_env *env, int y,
+										int (*colorf)(double));
 
 /*
 ** From fractal_alternate3.c
 */
 
 void			init_alternate3(t_env *env);
-int				render_line_alternate3(t_env *env, int y);
+int				render_line_alternate3(t_env *env, int y,
+										int (*colorf)(double));
 
 /*
 ** From draw.c

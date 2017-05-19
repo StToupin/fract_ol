@@ -50,7 +50,8 @@ static inline double	render_pixel(t_coordd c0, t_coordd jp,
 	return (log(1. + 20. * d) / log(20.));
 }
 
-int						render_line_alternate3(t_env *env, int y)
+int						render_line_alternate3(t_env *env, int y,
+												int (*colorf)(double))
 {
 	t_coord		c;
 	t_coordd	cd;
@@ -69,8 +70,7 @@ int						render_line_alternate3(t_env *env, int y)
 			cd = (t_coordd){center.x + scale * (c.x - WIN_WIDTH / 2),
 							center.y + scale * (c.y - WIN_HEIGHT / 2)};
 			env->image[AT(c.x, c.y)] =
-				env->colorf(render_pixel(cd, env->julia_param,
-											env->max_iterations));
+				colorf(render_pixel(cd, env->julia_param, env->max_iterations));
 			env->redraw_mask[AT(c.x, c.y)] = 0;
 			drawn = 1;
 		}

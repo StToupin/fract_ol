@@ -22,7 +22,7 @@ int						color_jet(double x)
 	int			irgb;
 
 	if (x == 1.)
-		return (0);
+		return (0xffff00);
 	if (x < .25)
 		rgb = (t_coord3d){0., 4. * x, 1.};
 	else if (x < .5)

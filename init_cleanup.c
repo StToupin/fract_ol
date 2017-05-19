@@ -44,7 +44,7 @@ int			init(t_env *env)
 {
 	int err;
 
-	env->colorf = &color_fractal;
+	env->n_color = 0;
 	env->max_iterations = 2048;
 	env->line = 0;
 	env->redraw_mask = (int*)malloc((WIN_WIDTH * WIN_HEIGHT) * sizeof(int));
