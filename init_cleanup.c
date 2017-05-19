@@ -60,3 +60,16 @@ int			init(t_env *env)
 		return (err);
 	return (0);
 }
+
+int			die(t_env *env)
+{
+	if (env->image_ptr != NULL)
+		mlx_destroy_image(env->mlx_ptr, env->image_ptr);
+	if (env->mlx_win != NULL)
+		mlx_destroy_window(env->mlx_ptr, env->mlx_win);
+	if (env->redraw_mask != NULL)
+		free(env->redraw_mask);
+	if (env->image2 != NULL)
+		free(env->image2);
+	exit(0);
+}

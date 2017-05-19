@@ -72,10 +72,11 @@ typedef	enum	e_key
 }				t_key;
 
 /*
-** From init.c
+** From init_cleanup.c
 */
 
 int				init(t_env *env);
+int				die(t_env *env);
 
 /*
 ** From ft.c
@@ -107,12 +108,6 @@ int				hook_loop(t_env *env);
 
 int				hook_mouse_moved(int x, int y, t_env *env);
 int				hook_mouse_wheel(int button, int x, int y, t_env *env);
-
-/*
-** From cleanup.c
-*/
-
-int				die(t_env *env);
 
 /*
 ** From fractal_mandelbrot.c
